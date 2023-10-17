@@ -1,6 +1,6 @@
 Package: rapadm
 Title: Monitor Settings and Applications at Rapporteket 
-Version: 0.6.1
+Version: 0.6.2
 Authors@R: 
     person(given = "Are",
            family = "Edvardsen",
@@ -24,3 +24,5 @@ Imports:
     rpivotTable,
     shiny,
     yaml
+Remotes:
+    Rapporteket/rapbase@falktest
