@@ -22,9 +22,9 @@ RUN install2.r --error --skipinstalled --ncpus -1 \
     shiny \
     yaml \
     && rm -rf /tmp/downloaded_packages \
+    && R -e "remotes::install_github(\"Rapporteket/rapbase\", ref = \"falktest\")" \
     && R -e "remotes::install_local(list.files(pattern = \"*.tar.gz\"))" \
     && rm ./*.tar.gz \
-    && R -e "remotes::install_github(\"Rapporteket/rapbase\", ref = \"falktest\")" \
     && R -e "remotes::install_github(\"Rapporteket/ablanor\", ref = \"poc\")"
 
 EXPOSE 3838
