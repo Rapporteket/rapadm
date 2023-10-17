@@ -16,7 +16,6 @@ RUN install2.r --error --skipinstalled --ncpus -1 \
     dplyr \
     ggplot2 \
     magrittr \
-    rapbase \
     readr \
     rlang \
     rpivotTable \
