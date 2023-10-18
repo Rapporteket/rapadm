@@ -23,7 +23,7 @@ jobs:
       - name: Build package (tarball)
         run: R CMD build .
       - name: Lint Dockerfile
-        uses: hadolint/hadolint-action@v3
+        uses: hadolint/hadolint-action@v2
         with:
           dockerfile: "Dockerfile"
       - name: Prepare tags
