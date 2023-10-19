@@ -9,13 +9,11 @@
 
 app_server <- function(input, output, session) {
 
-  widgetoutput <- rapbase::navbarWidgetServer2(
+  rapbase::navbarWidgetServer2(
     "rapadm-widget",
     orgName = "RapAdm",
     caller = packageName()
   )
-
-  observe(print(widgetoutput$rv))
 
   # Environment
   output$user <- shiny::renderText({
@@ -32,7 +30,7 @@ app_server <- function(input, output, session) {
   })
   output$role <- shiny::renderText({
     paste("rapbase::getUserRole(session):",
-          widgetoutput$rv$role)
+          rapbase::userAttribute("rapadm")$role)
   })
   output$email <- shiny::renderText({
     paste("rapbase::getUserEmail(session):",
