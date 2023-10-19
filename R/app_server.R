@@ -9,40 +9,42 @@
 
 app_server <- function(input, output, session) {
 
-  rapbase::navbarWidgetServer2(
+  widgetoutput <- rapbase::navbarWidgetServer2(
     "rapadm-widget",
     orgName = "RapAdm",
     caller = packageName()
   )
 
+  observe(print(widgetoutput$rv))
+
   # Environment
   output$user <- shiny::renderText({
     paste("rapbase::getUserName(session):",
-          rapbase::getUserName(session))
+          rapbase::userAttribute("rapadm")$name)
   })
   output$group <- shiny::renderText({
     paste("rapbase::getUserGroups(session):",
-          rapbase::getUserGroups(session))
+          rapbase::userAttribute("rapadm")$group)
   })
   output$resh_id <- shiny::renderText({
     paste("rapbase::getUserReshId(session):",
-          rapbase::getUserReshId(session))
+          rapbase::userAttribute("rapadm")$org)
   })
   output$role <- shiny::renderText({
     paste("rapbase::getUserRole(session):",
-          rapbase::getUserRole(session))
+          widgetoutput$rv$role)
   })
   output$email <- shiny::renderText({
     paste("rapbase::getUserEmail(session):",
-          rapbase::getUserEmail(session))
+          rapbase::userAttribute("rapadm")$name)
   })
   output$full_name <- shiny::renderText({
     paste("rapbase::getUserFullName(session):",
-          rapbase::getUserFullName(session))
+          rapbase::userAttribute("rapadm")$name)
   })
   output$phone <- shiny::renderText({
     paste("rapbase::getUserPhone(session):",
-          rapbase::getUserPhone(session))
+          rapbase::userAttribute("rapadm")$phone)
   })
   output$instance <- shiny::renderText({
     Sys.getenv("R_RAP_INSTANCE")
