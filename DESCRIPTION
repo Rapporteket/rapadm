@@ -1,6 +1,6 @@
 Package: rapadm
 Title: Monitor Settings and Applications at Rapporteket 
-Version: 0.6.2.9000
+Version: 0.6.2.9001
 Authors@R: 
     person(given = "Are",
            family = "Edvardsen",
