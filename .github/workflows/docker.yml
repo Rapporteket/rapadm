@@ -9,6 +9,10 @@ on:
   schedule:
     - cron: '0 21 * * 6' # run every Saturday at 21
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   push_to_registries:
     name: Push Docker image to docker hub
@@ -23,12 +27,12 @@ jobs:
       - name: Build package (tarball)
         run: R CMD build .
       - name: Lint Dockerfile
-        uses: brpaz/hadolint-action@master
+        uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: "Dockerfile"
       - name: Prepare tags
         id: docker_meta
-        uses: docker/metadata-action@v4.3.0
+        uses: docker/metadata-action@v4
         with:
           images: ${{ env.IMAGE_NAME }}
           tags: |
