@@ -9,6 +9,10 @@ on:
   schedule:
     - cron: '0 21 * * 6' # run every Saturday at 21
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   push_to_registries:
     name: Push Docker image to docker hub

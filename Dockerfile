@@ -1,6 +1,6 @@
-FROM rapporteket/base-r:4.2.2
+FROM rapporteket/base-r:main
 
-LABEL maintainer "Are Edvardsen <are.edvardsen@helse-nord.no>"
+LABEL maintainer "Arnfinn Hykkerud Steindal <arnfinn.hykkerud.steindal@helse-nord.no>"
 LABEL no.rapporteket.cd.enable="true"
 
 ARG GH_PAT
