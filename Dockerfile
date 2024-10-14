@@ -6,7 +6,6 @@ LABEL no.rapporteket.cd.enable="true"
 ARG GH_PAT
 ENV GITHUB_PAT=${GH_PAT}
 
-# hadolint ignore=DL3010
 WORKDIR /app/R
 
 COPY *.tar.gz .
