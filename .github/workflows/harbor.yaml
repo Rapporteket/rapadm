@@ -15,6 +15,7 @@ concurrency:
 
 jobs:
   build:
+    name: Push Docker image to Harbor
     runs-on: ubuntu-latest
     env:
         IMAGE_NAME: ${{ github.repository }}
