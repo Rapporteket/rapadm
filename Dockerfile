@@ -10,21 +10,9 @@ WORKDIR /app/R
 
 COPY *.tar.gz .
 
-RUN install2.r --error --skipinstalled --ncpus -1 \
-    bslib \
-    dplyr \
-    ggplot2 \
-    magrittr \
-    readr \
-    rlang \
-    rpivotTable \
-    shiny \
-    yaml \
-    && rm -rf /tmp/downloaded_packages \
-    && R -e "remotes::install_github(\"Rapporteket/rapbase\", ref = \"falktest\")" \
+RUN R -e "remotes::install_github(\"Rapporteket/rapbase\", ref = \"falktest\")" \
     && R -e "remotes::install_local(list.files(pattern = \"*.tar.gz\"))" \
-    && rm ./*.tar.gz \
-    && R -e "remotes::install_github(\"Rapporteket/ablanor\", ref = \"poc\")"
+    && rm ./*.tar.gz
 
 EXPOSE 3838
 
