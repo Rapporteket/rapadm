@@ -96,8 +96,9 @@ app_server <- function(input, output, session) {
 
   # Usestats
   log <- shiny::reactive({
-    rapbase:::readLog(type = input$type, name = "") %>%
-      rapbase::logFormat()
+#    rapbase:::readLog(type = input$type, name = "") %>%
+#      rapbase::logFormat()
+     NULL
   })
 
   output$download <- shiny::downloadHandler(
@@ -128,7 +129,8 @@ app_server <- function(input, output, session) {
   )
 
   # Autoreport
-  ar <- rapbase::readAutoReportData()
+#  ar <- rapbase::readAutoReportData()
+  ar <- NULL
 
   far <- shiny::reactive({
     shiny::req(input$fpackage, input$ftype, input$fowner, input$forganization)
