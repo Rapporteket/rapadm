@@ -28,7 +28,6 @@ services:
     depends_on:
       - db
     image: rapporteket/pilot-dev:main
-    pull_policy: always # krasjer uten internett
     volumes:
       - ~/.ssh:/home/rstudio/.ssh
       - ~/.gitconfig:/home/rstudio/.gitconfig
