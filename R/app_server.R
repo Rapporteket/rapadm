@@ -96,9 +96,9 @@ app_server <- function(input, output, session) {
 
   # Usestats
   log <- shiny::reactive({
-#    rapbase:::readLog(type = input$type, name = "") %>%
-#      rapbase::logFormat()
-     NULL
+    rapbase:::readLog(type = input$type, name = "") %>%
+      rapbase::logFormat()
+    # NULL
   })
 
   output$download <- shiny::downloadHandler(
@@ -129,8 +129,8 @@ app_server <- function(input, output, session) {
   )
 
   # Autoreport
-#  ar <- rapbase::readAutoReportData()
-  ar <- NULL
+  ar <- rapbase::readAutoReportData()
+  # ar <- NULL
 
   far <- shiny::reactive({
     shiny::req(input$fpackage, input$ftype, input$fowner, input$forganization)
@@ -180,7 +180,7 @@ app_server <- function(input, output, session) {
   })
 
   output$calendar <- shiny::renderPlot({
-      plot(calendar_autoreport(far()))
+    plot(calendar_autoreport(far()))
   })
 
   output$autoreport_data <- shiny::renderText({
