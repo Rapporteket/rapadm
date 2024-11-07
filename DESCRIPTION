@@ -25,4 +25,4 @@ Imports:
     shiny,
     yaml
 Remotes:
-    Rapporteket/rapbase@falktest
+    Rapporteket/rapbase@main
