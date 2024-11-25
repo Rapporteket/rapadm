@@ -1,12 +1,21 @@
 Package: rapadm
 Title: Monitor Settings and Applications at Rapporteket 
-Version: 0.6.2.9006
-Authors@R: 
+Version: 0.8.5.9000
+Authors@R: c(
     person(given = "Are",
            family = "Edvardsen",
            role = c("aut", "cre"),
            email = "biorakel@gmail.com",
-           comment = c(ORCID = "0000-0002-5210-3656"))
+           comment = c(ORCID = "0000-0002-5210-3656")),
+    person(given = "Kevin Otto",
+           family = "Thon",
+           role = c("aut"),
+           email = "kevin.thon@helse-nord.no"),
+    person(given = "Arnfinn Hykkerud",
+           family = "Steindal",
+           role = c("aut"),
+           email = "arnfinn.steindal@gmail.com",
+           comment = c(ORCID = "0000-0002-4088-7860")))
 Description: Display configuration and monitoring logs and scheduled reports at
     Rapporteket.
 License: GPL (>= 3)
