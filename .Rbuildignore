@@ -3,3 +3,6 @@
 ^LICENSE\.md$
 ^\.github$
 ^Dockerfile$
+docker-compose.yml
+renovate.json
+dev/
