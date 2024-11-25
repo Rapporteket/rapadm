@@ -8,6 +8,7 @@
 #' @export
 
 app_server <- function(input, output, session) {
+  rapbase::logShinyInputChanges(input)
 
   user <- rapbase::navbarWidgetServer2(
     "rapadm-widget",
