@@ -131,7 +131,6 @@ app_server <- function(input, output, session) {
 
   # Autoreport
   ar <- rapbase::readAutoReportData()
-  # ar <- NULL
 
   far <- shiny::reactive({
     shiny::req(input$fpackage, input$ftype, input$fowner, input$forganization)
