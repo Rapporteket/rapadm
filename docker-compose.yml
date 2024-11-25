@@ -16,6 +16,7 @@ services:
     restart: "no"
     environment:
       MYSQL_ROOT_PASSWORD: root
+    platform: "linux/amd64"
 
   app:
     image: rapporteket/rapadm:main
@@ -23,6 +24,7 @@ services:
       - 3838:3838
     environment:
       << : *environment
+    platform: "linux/amd64"
 
   dev:
     depends_on:
@@ -37,6 +39,7 @@ services:
     ports:
       - "8787:8787"
     restart: "no"
+    platform: "linux/amd64"
     environment:
       << : *environment
       DISABLE_AUTH: "true"
@@ -50,3 +53,4 @@ services:
       ADMINER_PLUGINS: frames
     ports:
       - 8888:8080
+    platform: "linux/amd64"
