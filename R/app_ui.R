@@ -5,7 +5,6 @@
 
 app_ui <- function() {
 
-  #shiny::addResourcePath("rap", system.file("www", package = "rapbase"))
   app_title <- "RapAdm"
 
   shiny::tagList(
@@ -75,7 +74,9 @@ app_ui <- function() {
             shiny::radioButtons(
               "downloadFormat",
               label = shiny::tags$div(
-                shiny::HTML(as.character(shiny::icon("file-csv")), "File format:")
+                shiny::HTML(
+                  as.character(shiny::icon("file-csv")), "File format:"
+                )
               ),
               choices = c("csv", "xlsx-csv")
             ),

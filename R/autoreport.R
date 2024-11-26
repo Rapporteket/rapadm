@@ -26,8 +26,8 @@ unique_autoreport <- function(data, entity) {
 #' @param data List containing auto report data
 #' run. May well contain repeating values
 #' @param pointRangeMax Integer to provide static range of geom_point as
-#' \code{range(1:pointRangeMax)}. If set to 0 (default) the range of current data will be
-#' used.
+#' \code{range(1:pointRangeMax)}. If set to 0 (default) the range of
+#' current data will be used.
 #'
 #' @return a (gg)plot object
 #' @export
@@ -44,7 +44,6 @@ calendar_autoreport <- function(data, pointRangeMax = 0) {
       use.names = FALSE
     )
   }
-  #stopifnot(is.numeric(unlist(runDayOfYear)) || is.null(runDayOfYear))
   stopifnot(is.integer(pointRangeMax) || pointRangeMax == 0)
 
   startDate <- Sys.Date() - as.numeric(strftime(Sys.Date(), format = "%d")) + 1
@@ -87,14 +86,16 @@ calendar_autoreport <- function(data, pointRangeMax = 0) {
   # plot object
   g <- ggplot2::ggplot(
     data = b, ggplot2::aes(x = .data$weekOfMonth, y = .data$dayName,
-                           fill = .data$ymnId)) +
+                           fill = .data$ymnId)
+  ) +
     ggplot2::geom_tile(colour = "white", size = .1, alpha = 0.3) +
     ggplot2::facet_wrap(~yearMonthName, scales = "fixed", nrow = 4) +
     ggplot2::geom_text(
       data = b,
       ggplot2::aes(.data$weekOfMonth, .data$dayName,
                    label = .data$monthDayNum),
-      colour = "black", size = 3.5, nudge_x = .25, nudge_y = -.15) +
+      colour = "black", size = 3.5, nudge_x = .25, nudge_y = -.15
+    ) +
     ggplot2::theme_minimal() +
     ggplot2::theme(panel.grid.major = ggplot2::element_blank(),
                    panel.grid.minor = ggplot2::element_blank(),
@@ -114,7 +115,8 @@ calendar_autoreport <- function(data, pointRangeMax = 0) {
       dplyr::left_join(autoReportCount, by = "dayOfYear")
     g <- g + ggplot2::geom_point(data = b %>% dplyr::filter(!is.na(.data$n)),
                                  ggplot2::aes(x = .data$weekOfMonth,
-                                              y = .data$dayName, size = .data$n),
+                                              y = .data$dayName,
+                                              size = .data$n),
                                  colour = "#FF7260", alpha = 0.7)
   }
 
