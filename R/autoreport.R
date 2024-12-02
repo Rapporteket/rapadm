@@ -12,12 +12,7 @@
 #' unique_autoreport(ar, "type") # c("A", "B")
 
 unique_autoreport <- function(data, entity) {
-  vals <- vector(mode = "character")
-  for (i in seq_len(length(data))) {
-    vals <- c(vals, data[[i]][[entity]])
-  }
-
-  unique(vals)
+  unique(data[[entity]])
 }
 
 
@@ -34,16 +29,16 @@ unique_autoreport <- function(data, entity) {
 
 calendar_autoreport <- function(data, pointRangeMax = 0) {
 
-  if (length(data) == 0) {
-    runDayOfYear <- vector()
-  } else if (length(data) == 1) {
-    runDayOfYear <- data[[1]]$runDayOfYear
-  } else {
-    runDayOfYear <- unlist(
-      sapply(data, "[[", "runDayOfYear"),
-      use.names = FALSE
+
+  runDayOfYear <- vector()
+
+  for (oneRun in data$runDayOfYear) {
+    runDayOfYear <- c(
+      runDayOfYear,
+      as.vector(as.integer(strsplit(oneRun, ",")[[1]]))
     )
   }
+
   stopifnot(is.integer(pointRangeMax) || pointRangeMax == 0)
 
   startDate <- Sys.Date() - as.numeric(strftime(Sys.Date(), format = "%d")) + 1
