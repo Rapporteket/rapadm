@@ -183,8 +183,8 @@ app_server <- function(input, output, session) {
     plot(calendar_autoreport(far()))
   })
 
-  output$autoreport_data <- shiny::renderText({
-    yaml::as.yaml(far())
+  output$autoreport_data <- DT::renderDT({
+    far()
   })
 
   # Staging
