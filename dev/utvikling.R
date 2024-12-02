@@ -6,4 +6,4 @@ source("dev/env.R")
 
 Sys.setenv(MYSQL_HOST="localhost") # for mobilt kontor
 
-rapadm::run_app()
+rapadm::run_app(browser = TRUE)
