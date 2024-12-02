@@ -6,5 +6,9 @@
 run_app <- function(browser = FALSE) {
 
   rapbase::loggerSetup()
-  shiny::shinyApp(ui = app_ui, server = app_server, , options = list(launch.browser = browser))
+  shiny::shinyApp(
+    ui = app_ui,
+    server = app_server,
+    options = list(launch.browser = browser)
+  )
 }
