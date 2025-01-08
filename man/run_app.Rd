@@ -4,7 +4,7 @@
 \alias{run_app}
 \title{Run the rapadm Shiny Application}
 \usage{
-run_app()
+run_app(browser = FALSE)
 }
 \value{
 An object representing the rapadm app
