@@ -136,7 +136,12 @@ app_server <- function(input, output, session) {
     shiny::req(input$fpackage, input$ftype, input$fowner, input$forganization)
     far <- ar
     if (input$fpackage != "no filter") {
-      far <- rapbase::filterAutoRep(far, "package", input$fpackage, target = "db")
+      far <- rapbase::filterAutoRep(
+        far,
+        "package",
+        input$fpackage,
+        target = "db"
+      )
     }
     if (input$ftype != "no filter") {
       far <- rapbase::filterAutoRep(far, "type", input$ftype, target = "db")
@@ -145,7 +150,12 @@ app_server <- function(input, output, session) {
       far <- rapbase::filterAutoRep(far, "owner", input$fowner, target = "db")
     }
     if (input$forganization != "no filter") {
-      far <- rapbase::filterAutoRep(far, "organization", input$forganization, target = "db")
+      far <- rapbase::filterAutoRep(
+        far,
+        "organization",
+        input$forganization,
+        target = "db"
+      )
     }
     far
   })
