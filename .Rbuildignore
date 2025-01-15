@@ -6,3 +6,4 @@
 docker-compose.yml
 renovate.json
 dev/
+^\.lintr$

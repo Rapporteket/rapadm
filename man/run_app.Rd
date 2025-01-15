@@ -6,6 +6,9 @@
 \usage{
 run_app(browser = FALSE)
 }
+\arguments{
+\item{browser}{Open app in browser window}
+}
 \value{
 An object representing the rapadm app
 }
