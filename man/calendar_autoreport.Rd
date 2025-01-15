@@ -11,8 +11,8 @@ calendar_autoreport(data, pointRangeMax = 0)
 run. May well contain repeating values}
 
 \item{pointRangeMax}{Integer to provide static range of geom_point as
-\code{range(1:pointRangeMax)}. If set to 0 (default) the range of current data will be
-used.}
+\code{range(1:pointRangeMax)}. If set to 0 (default) the range of
+current data will be used.}
 }
 \value{
 a (gg)plot object

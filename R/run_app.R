@@ -1,5 +1,7 @@
 #' Run the rapadm Shiny Application
 #'
+#' @param browser Open app in browser window
+#'
 #' @return An object representing the rapadm app
 #' @export
 
