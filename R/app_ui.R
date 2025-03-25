@@ -105,20 +105,6 @@ app_ui <- function() {
             DT::DTOutput("autoreport_data")
           )
         )
-      ),
-
-      shiny::tabPanel(
-        "Staging",
-        shiny::sidebarLayout(
-          shiny::sidebarPanel(
-            shiny::p("Delete all staging data"),
-            shiny::checkboxInput("delete_staging", "I'm sure!"),
-            shiny::uiOutput("remove_staging")
-          ),
-          shiny::mainPanel(
-            shiny::verbatimTextOutput("staging_data")
-          )
-        )
       )
     )
   )
