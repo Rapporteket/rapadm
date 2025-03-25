@@ -102,7 +102,7 @@ app_ui <- function() {
             shiny::h2("Auto reports running one year from now"),
             shiny::plotOutput("calendar"),
             shiny::h2("Auto report raw data"),
-            shiny::dataTableOutput("autoreport_data")
+            DT::DTOutput("autoreport_data")
           )
         )
       ),
