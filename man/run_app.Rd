@@ -4,10 +4,12 @@
 \alias{run_app}
 \title{Run the rapadm Shiny Application}
 \usage{
-run_app(browser = FALSE)
+run_app(browser = FALSE, logAsJson = FALSE)
 }
 \arguments{
 \item{browser}{Open app in browser window}
+
+\item{logAsJson}{Log in json-format}
 }
 \value{
 An object representing the rapadm app
