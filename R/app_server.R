@@ -197,27 +197,4 @@ app_server <- function(input, output, session) {
     far()
   })
 
-  # Staging
-  shiny::observeEvent(input$do_remove, {
-    rapbase::cleanStagingData(0, dryRun = FALSE)
-  })
-  output$remove_staging <- shiny::renderUI({
-    if (input$delete_staging) {
-      shiny::actionButton(
-        "do_remove", "Delete staging data", icon = shiny::icon("trash")
-      )
-    } else {
-      NULL
-    }
-  })
-  output$staging_data <- shiny::renderPrint({
-    input$do_remove
-    res <- rapbase::cleanStagingData(0)
-    if (length(res) < 1) {
-      "There is no staging data."
-    } else {
-      res
-    }
-  })
-
 }
