@@ -36,3 +36,7 @@ Imports:
     yaml
 Remotes:
     Rapporteket/rapbase@main
+Suggests: 
+    testthat (>= 3.0.0),
+    RMariaDB
+Config/testthat/edition: 3
