@@ -130,7 +130,7 @@ app_server <- function(input, output, session) {
   )
 
   # Autoreport
-  ar <- rapbase::readAutoReportData(target = "db")
+  ar <- rapbase::readAutoReportData()
 
   far <- shiny::reactive({
     shiny::req(input$fpackage, input$ftype, input$fowner, input$forganization)
@@ -139,22 +139,20 @@ app_server <- function(input, output, session) {
       far <- rapbase::filterAutoRep(
         far,
         "package",
-        input$fpackage,
-        target = "db"
+        input$fpackage
       )
     }
     if (input$ftype != "no filter") {
-      far <- rapbase::filterAutoRep(far, "type", input$ftype, target = "db")
+      far <- rapbase::filterAutoRep(far, "type", input$ftype)
     }
     if (input$fowner != "no filter") {
-      far <- rapbase::filterAutoRep(far, "owner", input$fowner, target = "db")
+      far <- rapbase::filterAutoRep(far, "owner", input$fowner)
     }
     if (input$forganization != "no filter") {
       far <- rapbase::filterAutoRep(
         far,
         "organization",
-        input$forganization,
-        target = "db"
+        input$forganization
       )
     }
     far
