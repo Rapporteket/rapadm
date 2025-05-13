@@ -96,14 +96,22 @@ app_server <- function(input, output, session) {
     }
   )
 
-  output$pivot <- rpivotTable::renderRpivotTable(
-    rpivotTable::rpivotTable(
-      log(),
-      rows = c("group"),
-      cols = c("year", "month"),
-      rendererName = "Heatmap"
-    )
-  )
+
+  output$usestats_data <- shiny::renderUI({
+    shiny::req(log())
+    if (input$viewtype == "table") {
+      DT::renderDT(
+        log()
+      )
+    } else {
+      rpivotTable::rpivotTable(
+        log(),
+        rows = c("group"),
+        cols = c("year", "month"),
+        rendererName = "Heatmap"
+      )
+    }
+  })
 
   # Autoreport
   ar <- rapbase::readAutoReportData() %>%

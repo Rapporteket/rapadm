@@ -68,10 +68,20 @@ app_ui <- function() {
               ),
               choices = c("csv", "xlsx-csv")
             ),
-            shiny::downloadButton("download", "Download!")
+            shiny::radioButtons(
+              "viewtype",
+              label = shiny::tags$div(
+                shiny::HTML(
+                  as.character(shiny::icon("table")), "View:"
+                )
+              ),
+              choices = c("Pivot" = "pivot", "Table" = "table")
+            ),
+            shiny::downloadButton("download", "Download!"), width = 2
           ),
           shiny::mainPanel(
-            rpivotTable::rpivotTableOutput("pivot")
+            shiny::h2("Usestats table"),
+            shiny::uiOutput("usestats_data"), width = 10
           )
         )
       ),
