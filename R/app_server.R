@@ -130,7 +130,8 @@ app_server <- function(input, output, session) {
   )
 
   # Autoreport
-  ar <- rapbase::readAutoReportData()
+  ar <- rapbase::readAutoReportData() %>%
+    dplyr::select(-"runDayOfYear")
 
   far <- shiny::reactive({
     shiny::req(input$fpackage, input$ftype, input$fowner, input$forganization)
