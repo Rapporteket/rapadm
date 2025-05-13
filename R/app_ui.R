@@ -99,8 +99,6 @@ app_ui <- function() {
             shiny::uiOutput("forganization")
           ),
           shiny::mainPanel(
-            shiny::h2("Auto reports running one year from now"),
-            shiny::plotOutput("calendar"),
             shiny::h2("Auto report raw data"),
             DT::DTOutput("autoreport_data")
           )
