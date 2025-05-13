@@ -187,10 +187,6 @@ app_server <- function(input, output, session) {
     )
   })
 
-  output$calendar <- shiny::renderPlot({
-    plot(calendar_autoreport(far()))
-  })
-
   output$autoreport_data <- DT::renderDT({
     far()
   })
