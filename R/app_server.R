@@ -71,30 +71,6 @@ app_server <- function(input, output, session) {
   })
 
 
-  # Logs
-  output$container_log_ui <- shiny::renderUI({
-    f <- file.info(
-      list.files("/container_logs", full.names = TRUE, pattern = "\\.log$")
-    )
-    f <- f %>%
-      dplyr::arrange(dplyr::desc(.data$mtime)) %>%
-      dplyr::slice_head(n = 50)
-    log_file <- rownames(f)
-    names(log_file) <- basename(rownames(f))
-    shiny::selectInput(
-      inputId = "container_log",
-      label = "Select a log file:",
-      choices = as.list(log_file)
-    )
-  })
-
-  output$container_log <- shiny::renderText({
-    shiny::req(input$container_log)
-    raw_text <- readLines(input$container_log)
-    paste0(raw_text, collapse = "\n")
-  })
-
-
   # Usestats
   log <- shiny::reactive({
     rapbase:::readLog(type = input$type, name = "") %>%

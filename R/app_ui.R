@@ -49,18 +49,6 @@ app_ui <- function() {
       ),
 
       shiny::tabPanel(
-        "Logs",
-        shiny::sidebarLayout(
-          shiny::sidebarPanel(
-            shiny::uiOutput("container_log_ui")
-          ),
-          shiny::mainPanel(
-            shiny::verbatimTextOutput("container_log")
-          )
-        )
-      ),
-
-      shiny::tabPanel(
         "Usestats",
         shiny::sidebarLayout(
           shiny::sidebarPanel(
