@@ -1,4 +1,4 @@
-FROM rapporteket/base-r:rapadm
+FROM rapporteket/base-r:1.3.0
 
 LABEL maintainer="Arnfinn Hykkerud Steindal <arnfinn.hykkerud.steindal@helse-nord.no>"
 LABEL no.rapporteket.cd.enable="true"
