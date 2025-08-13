@@ -176,4 +176,12 @@ app_server <- function(input, output, session) {
     far()
   })
 
+  output$download_autoreport_data <- shiny::downloadHandler(
+    filename = function() {
+      paste0("autoreport-", Sys.Date(), ".csv")
+    },
+    content = function(con) {
+      write.csv2(far(), con, row.names = FALSE, na = "")
+    }
+  )
 }

@@ -94,7 +94,8 @@ app_ui <- function() {
             shiny::uiOutput("fpackage"),
             shiny::uiOutput("ftype"),
             shiny::uiOutput("fowner"),
-            shiny::uiOutput("forganization")
+            shiny::uiOutput("forganization"),
+            shiny::downloadButton("download_autoreport_data", "Download!")
           ),
           shiny::mainPanel(
             shiny::h2("Auto report raw data"),
