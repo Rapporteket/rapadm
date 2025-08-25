@@ -90,17 +90,19 @@ app_ui <- function() {
         "Autoreports",
         shiny::sidebarLayout(
           shiny::sidebarPanel(
-            shiny::p("Filter"),
+            shiny::h3("Filtes"),
             shiny::uiOutput("fpackage"),
             shiny::uiOutput("ftype"),
             shiny::uiOutput("fowner"),
             shiny::uiOutput("forganization"),
+            shiny::hr(),
+            shiny::h3("Other actions"),
+            shiny::uiOutput("whichAutoReportTable"),
             shiny::downloadButton("download_autoreport_data", "Download!")
           ),
           shiny::mainPanel(
-            shiny::uiOutput("autoReportTable"),
-            shiny::h2("Auto report raw data"),
-            DT::DTOutput("autoreport_data")
+            shiny::h3("Auto reports"),
+            shiny::uiOutput("autoReportTable")
           )
         )
       )

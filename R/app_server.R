@@ -115,6 +115,13 @@ app_server <- function(input, output, session) {
 
   # Autoreport
 
+  # Toggle between raw and formatted table
+  output$whichAutoReportTable <- shiny::renderUI({
+    bslib::input_switch(
+      "rawTable", "Raw table"
+    )
+  })
+
   # Static list of all autoreports, used to populate filter dropdowns
   staticAutoReport <- rapbase::readAutoReportData() %>%
     dplyr::select(-"runDayOfYear")
@@ -126,6 +133,7 @@ app_server <- function(input, output, session) {
   }) %>%
     shiny::bindEvent(input$del_button, ignoreNULL = FALSE, ignoreInit = FALSE)
 
+  # Filtered autoreport data, updated when filter inputs change
   filteredAutoReport <- shiny::reactive({
     shiny::req(input$fpackage, input$ftype, input$fowner, input$forganization)
     message("Filtering autoreport data")
@@ -178,7 +186,10 @@ app_server <- function(input, output, session) {
     shiny::selectInput(
       "forganization",
       "- organization:",
-      choices = c("no filter", unique_autoreport(staticAutoReport, "organization"))
+      choices = c(
+        "no filter",
+        unique_autoreport(staticAutoReport, "organization")
+      )
     )
   })
 
@@ -193,23 +204,18 @@ app_server <- function(input, output, session) {
   })
 
   output$autoReportTable <- shiny::renderUI({
-    shiny::tagList(
-      shiny::h2("Aktive oppf\u00F8ringer:"),
+    if (input$rawTable) {
+      DT::DTOutput("autoreport_data")
+    } else {
       DT::renderDataTable(
         autoReportTab(),
         server = FALSE, escape = FALSE, selection = "none",
         rownames = FALSE,
         options = list(
-          pageLength = 40,
-          language = list(
-            lengthMenu = "Vis _MENU_ rader per side",
-            search = "S\u00f8k:",
-            info = "Rad _START_ til _END_ av totalt _TOTAL_",
-            paginate = list(previous = "Forrige", `next` = "Neste")
-          )
+          pageLength = 25
         )
       )
-    )
+    }
   })
 
   autoReportTab <- shiny::reactive({
