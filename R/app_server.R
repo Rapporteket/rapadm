@@ -114,12 +114,22 @@ app_server <- function(input, output, session) {
   })
 
   # Autoreport
-  ar <- rapbase::readAutoReportData() %>%
+
+  # Static list of all autoreports, used to populate filter dropdowns
+  staticAutoReport <- rapbase::readAutoReportData() %>%
     dplyr::select(-"runDayOfYear")
 
-  far <- shiny::reactive({
+  # Reactive autoreport data, updated when an autoreport is deleted
+  reactiveAutoReport <- shiny::reactive({
+    rapbase::readAutoReportData() %>%
+      dplyr::select(-"runDayOfYear")
+  }) %>%
+    shiny::bindEvent(input$del_button, ignoreNULL = FALSE, ignoreInit = FALSE)
+
+  filteredAutoReport <- shiny::reactive({
     shiny::req(input$fpackage, input$ftype, input$fowner, input$forganization)
-    far <- ar
+    message("Filtering autoreport data")
+    far <- reactiveAutoReport()
     if (input$fpackage != "no filter") {
       far <- rapbase::filterAutoRep(
         far,
@@ -147,33 +157,114 @@ app_server <- function(input, output, session) {
     shiny::selectInput(
       "fpackage",
       "- registry:",
-      choices = c("no filter", unique_autoreport(ar, "package"))
+      choices = c("no filter", unique_autoreport(staticAutoReport, "package"))
     )
   })
   output$ftype <- shiny::renderUI({
     shiny::selectInput(
       "ftype",
       "- type:",
-      choices = c("no filter", unique_autoreport(ar, "type"))
+      choices = c("no filter", unique_autoreport(staticAutoReport, "type"))
     )
   })
   output$fowner <- shiny::renderUI({
     shiny::selectInput(
       "fowner",
       "- owner:",
-      choices = c("no filter", unique_autoreport(ar, "owner"))
+      choices = c("no filter", unique_autoreport(staticAutoReport, "owner"))
     )
   })
   output$forganization <- shiny::renderUI({
     shiny::selectInput(
       "forganization",
       "- organization:",
-      choices = c("no filter", unique_autoreport(ar, "organization"))
+      choices = c("no filter", unique_autoreport(staticAutoReport, "organization"))
     )
   })
 
   output$autoreport_data <- DT::renderDT({
-    far()
+    filteredAutoReport()
+  })
+
+  shiny::observeEvent(input$del_button, {
+    repId <- strsplit(input$del_button, "__")[[1]][2]
+    print(repId)
+    rapbase::deleteAutoReport(repId)
+  })
+
+  output$autoReportTable <- shiny::renderUI({
+    shiny::tagList(
+      shiny::h2("Aktive oppf\u00F8ringer:"),
+      DT::renderDataTable(
+        autoReportTab(),
+        server = FALSE, escape = FALSE, selection = "none",
+        rownames = FALSE,
+        options = list(
+          pageLength = 40,
+          language = list(
+            lengthMenu = "Vis _MENU_ rader per side",
+            search = "S\u00f8k:",
+            info = "Rad _START_ til _END_ av totalt _TOTAL_",
+            paginate = list(previous = "Forrige", `next` = "Neste")
+          )
+        )
+      )
+    )
+  })
+
+  autoReportTab <- shiny::reactive({
+    autoRep <- filteredAutoReport()
+    message("Rendering autoreport table")
+    print(dim(autoRep))
+    message(names(autoRep))
+
+    dateFormat <- "%A %e. %B %Y"
+
+    if (length(autoRep$id) == 0) {
+      return(as.matrix(autoRep))
+    }
+
+    l <- list()
+    for (i in seq_len(nrow(autoRep))) {
+      nextDate <- rapbase::findNextRunDate(
+        runDayOfYear = NULL,
+        startDate = autoRep[i, ]$startDate,
+        terminateDate = autoRep[i, ]$terminateDate,
+        interval = autoRep[i, ]$interval,
+        returnFormat = dateFormat
+      )
+      if (as.Date(nextDate, format = dateFormat) > autoRep[i, ]$terminateDate) {
+        nextDate <- "Utl\u00F8pt"
+      }
+      r <- list(
+        "id" = autoRep[i, ]$id,
+        "Ansvarlig" = autoRep[i, ]$ownerName,
+        "Rapport" = autoRep[i, ]$synopsis,
+        "Datakilde" = autoRep[i, ]$organization,
+        "Mottaker" = autoRep[i, ]$email,
+        "Periode" = autoRep[i, ]$intervalName,
+        "Slutt" = strftime(
+          as.Date(
+            autoRep[i, ]$terminateDate
+          ),
+          format = dateFormat
+        ),
+        "Neste" = nextDate,
+        "Slett" = as.character(
+          shiny::actionButton(
+            inputId = paste0("del__", autoRep[i, ]$id),
+            label = "",
+            icon = shiny::icon("trash"),
+            onclick = sprintf(
+              "Shiny.onInputChange('%s', this.id)",
+              "del_button"
+            )
+          )
+        )
+      )
+      l <- rbind(l, r)
+    }
+    return(as.matrix(l))
   })
 
   output$download_autoreport_data <- shiny::downloadHandler(

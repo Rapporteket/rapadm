@@ -98,6 +98,7 @@ app_ui <- function() {
             shiny::downloadButton("download_autoreport_data", "Download!")
           ),
           shiny::mainPanel(
+            shiny::uiOutput("autoReportTable"),
             shiny::h2("Auto report raw data"),
             DT::DTOutput("autoreport_data")
           )
