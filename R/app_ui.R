@@ -90,7 +90,7 @@ app_ui <- function() {
         "Autoreports",
         shiny::sidebarLayout(
           shiny::sidebarPanel(
-            shiny::h3("Filtes"),
+            shiny::h3("Filters"),
             shiny::uiOutput("fpackage"),
             shiny::uiOutput("ftype"),
             shiny::uiOutput("fowner"),
