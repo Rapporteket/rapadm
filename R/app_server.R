@@ -123,8 +123,7 @@ app_server <- function(input, output, session) {
   })
 
   # Static list of all autoreports, used to populate filter dropdowns
-  staticAutoReport <- rapbase::readAutoReportData() %>%
-    dplyr::select(-"runDayOfYear")
+  staticAutoReport <- rapbase::readAutoReportData()
 
   # Reactive autoreport data, updated when an autoreport is deleted
   reactiveAutoReport <- shiny::reactive({
@@ -136,7 +135,6 @@ app_server <- function(input, output, session) {
   # Filtered autoreport data, updated when filter inputs change
   filteredAutoReport <- shiny::reactive({
     shiny::req(input$fpackage, input$ftype, input$fowner, input$forganization)
-    message("Filtering autoreport data")
     far <- reactiveAutoReport()
     if (input$fpackage != "no filter") {
       far <- rapbase::filterAutoRep(
@@ -199,7 +197,6 @@ app_server <- function(input, output, session) {
 
   shiny::observeEvent(input$del_button, {
     repId <- strsplit(input$del_button, "__")[[1]][2]
-    print(repId)
     rapbase::deleteAutoReport(repId)
   })
 
@@ -220,16 +217,12 @@ app_server <- function(input, output, session) {
 
   autoReportTab <- shiny::reactive({
     autoRep <- filteredAutoReport()
-    message("Rendering autoreport table")
-    print(dim(autoRep))
-    message(names(autoRep))
-
-    dateFormat <- "%A %e. %B %Y"
 
     if (length(autoRep$id) == 0) {
       return(as.matrix(autoRep))
     }
 
+    dateFormat <- "%A %e. %B %Y"
     l <- list()
     for (i in seq_len(nrow(autoRep))) {
       nextDate <- rapbase::findNextRunDate(
