@@ -31,8 +31,8 @@ app_ui <- function() {
         shiny::textOutput("instance"),
         shiny::h4("Environment var R_RAP_CONFIG_PATH:"),
         shiny::textOutput("config_path"),
-        shiny::h4("Environment var(s) provided by SHINYPROXY (if any):"),
-        shiny::textOutput("sp_usergroups"),
+        shiny::h4("List of all environment variables:"),
+        shiny::uiOutput("envvar"),
         shiny::h4("Locale settings:"),
         shiny::textOutput("locale")
       ),
