@@ -51,11 +51,9 @@ app_server <- function(input, output, session) {
   output$config_path <- shiny::renderText({
     Sys.getenv("R_RAP_CONFIG_PATH")
   })
-  output$envvar <- shiny::renderUI({
-    shiny::renderTable(
-      data.frame(names(Sys.getenv()), Sys.getenv(), row.names = NULL),
-      colnames = FALSE
-    )
+  output$sp_usergroups <- shiny::renderText({
+    paste("Sys.getenv('SHINYPROXY_USERGROUPS'):",
+          Sys.getenv("SHINYPROXY_USERGROUPS"))
   })
   output$locale <- shiny::renderText({
     Sys.getlocale()
