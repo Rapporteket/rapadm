@@ -271,7 +271,7 @@ app_server <- function(input, output, session) {
       paste0("autoreport-", Sys.Date(), ".csv")
     },
     content = function(con) {
-      write.csv2(far(), con, row.names = FALSE, na = "")
+      write.csv2(filteredAutoReport(), con, row.names = FALSE, na = "")
     }
   )
 }
