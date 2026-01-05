@@ -98,6 +98,7 @@ app_ui <- function() {
             shiny::hr(),
             shiny::h3("Other actions"),
             shiny::uiOutput("whichAutoReportTable"),
+            shiny::uiOutput("runAutoreport"),
             shiny::downloadButton("download_autoreport_data", "Download!")
           ),
           shiny::mainPanel(
