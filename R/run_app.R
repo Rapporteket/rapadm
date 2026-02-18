@@ -11,9 +11,11 @@ run_app <- function(browser = FALSE, logAsJson = FALSE) {
   if (logAsJson) {
     rapbase::loggerSetup()
   }
+  if (browser) {
+    options(shiny.launch.browser = TRUE)
+  }
   shiny::shinyApp(
     ui = app_ui,
-    server = app_server,
-    options = list(launch.browser = browser)
+    server = app_server
   )
 }

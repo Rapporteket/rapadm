@@ -73,7 +73,7 @@ app_server <- function(input, output, session) {
 
   # Usestats
   log <- shiny::reactive({
-    rapbase:::readLog(type = input$type, name = "") %>%
+    rapbase:::readLog(type = input$type, name = "") |>
       rapbase::logFormat()
     # NULL
   })
@@ -127,9 +127,9 @@ app_server <- function(input, output, session) {
 
   # Reactive autoreport data, updated when an autoreport is deleted
   reactiveAutoReport <- shiny::reactive({
-    rapbase::readAutoReportData() %>%
+    rapbase::readAutoReportData() |>
       dplyr::select(-"runDayOfYear")
-  }) %>%
+  }) |>
     shiny::bindEvent(input$del_button, ignoreNULL = FALSE, ignoreInit = FALSE)
 
   # Filtered autoreport data, updated when filter inputs change
