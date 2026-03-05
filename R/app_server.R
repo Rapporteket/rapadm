@@ -268,39 +268,40 @@ app_server <- function(input, output, session) {
 
   # Option to run all auto reports with a given date by clicking a button.
   output$runAutoreport <- shiny::renderUI({
-      shiny::tagList(
-        shiny::hr(),
-        shiny::h3("Kj\u00F8r alle aktuelle autorapporter"),
-        shiny::p(paste0(
-          "Denne funksjonen er kun for testing og utvikling, ",
-          "og vil lage alle rapporter for gitt dato."
-        )),
-        shiny::actionButton(
-          inputId = "run_autoreport",
-          label = "Kj\u00F8r autorapporter",
-          icon = shiny::icon("play"),
-          onclick = "this.disabled=true;"
-        ),
-        shiny::dateInput(
-          inputId = "rapportdato",
-          label = "Kj\u00F8r rapporter med dato:",
-          value = Sys.Date() + 1,
-          weekstart = 1,
-          language = "no"
-        ),
-        shiny::checkboxInput(
-          inputId = "sendEmails",
-          label = "Send e-post",
-          value = FALSE
-        )
+    shiny::tagList(
+      shiny::hr(),
+      shiny::h3("Kj\u00F8r alle aktuelle autorapporter"),
+      shiny::p(paste0(
+        "Denne funksjonen er kun for testing og utvikling, ",
+        "og vil lage alle rapporter for gitt dato."
+      )),
+      shiny::actionButton(
+        inputId = "run_autoreport",
+        label = "Kj\u00F8r autorapporter",
+        icon = shiny::icon("play"),
+        onclick = "this.disabled=true;"
+      ),
+      shiny::dateInput(
+        inputId = "rapportdato",
+        label = "Kj\u00F8r rapporter med dato:",
+        value = Sys.Date() + 1,
+        weekstart = 1,
+        language = "no"
+      ),
+      shiny::checkboxInput(
+        inputId = "sendEmails",
+        label = "Send e-post",
+        value = FALSE
       )
+    )
   })
 
   shiny::observeEvent(input$run_autoreport, {
     # Run all auto reports with the given date
     # when clicking the button
     dato <- input$rapportdato
-    message("Running all auto reports for date ", dato,
+    message(
+      "Running all auto reports for date ", dato,
       " and registry ", input$fpackage, ", ",
       ifelse(input$sendEmails, "WITH", "WITHOUT"),
       " sending e-mails. This job was triggered by ", user$fullName()
