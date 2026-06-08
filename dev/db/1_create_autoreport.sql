@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS `autoreport`;
+CREATE DATABASE IF NOT EXISTS `db_autoreport`;
 
-USE `autoreport`;
+USE `db_autoreport`;
 
 CREATE TABLE IF NOT EXISTS `autoreport` (
   `id` varchar(255) COLLATE utf8mb4_danish_ci DEFAULT NULL,

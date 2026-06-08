@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS `raplog`;
+CREATE DATABASE IF NOT EXISTS `db_log`;
 
-USE `raplog`;
+USE `db_log`;
 
 CREATE TABLE IF NOT EXISTS `appLog` (
   `id` int(9) unsigned NOT NULL AUTO_INCREMENT,
