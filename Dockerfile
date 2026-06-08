@@ -3,8 +3,7 @@ FROM rapporteket/base-r:main
 LABEL maintainer="Arnfinn Hykkerud Steindal <arnfinn.hykkerud.steindal@helse-nord.no>"
 LABEL no.rapporteket.cd.enable="true"
 
-ARG GH_PAT
-ENV GITHUB_PAT=${GH_PAT}
+ARG GITHUB_PAT
 
 WORKDIR /app/R
 
