@@ -28,6 +28,7 @@ Imports:
     bslib,
     dplyr,
     DT,
+    knitr,
     rapbase,
     readr,
     rlang,
