@@ -1,17 +1,10 @@
 FROM rapporteket/base-r-alpine:main
 
-LABEL maintainer="Arnfinn Hykkerud Steindal <arnfinn.hykkerud.steindal@helse-nord.no>"
-LABEL no.rapporteket.cd.enable="true"
-
-ARG GITHUB_PAT
-
 WORKDIR /app/R
 
-COPY *.tar.gz .
-
-RUN R -e "remotes::install_local(list.files(pattern = \"*.tar.gz\"))" \
-    && R -e "remotes::install_github(\"Rapporteket/rapbase\", ref = \"main\")" \
-    && rm ./*.tar.gz
+RUN --mount=type=secret,id=github_pat,env=GITHUB_PAT \
+    --mount=type=bind,source=.,target=/app/R/pkg \
+    R -e "remotes::install_local(path = './pkg')"
 
 EXPOSE 3838
 

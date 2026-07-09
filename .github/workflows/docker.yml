@@ -19,13 +19,7 @@ jobs:
       IMAGE_NAME: ${{ github.repository }}
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v6
-      - name: R setup
-        uses: r-lib/actions/setup-r@v2
-        with:
-          use-public-rspm: true
-      - name: Build package (tarball)
-        run: R CMD build .
+        uses: actions/checkout@v7
       - name: Lint Dockerfile
         uses: hadolint/hadolint-action@v3.3.0
         with:
@@ -38,7 +32,6 @@ jobs:
           tags: |
             type=ref,event=branch
             type=ref,event=pr
-            type=schedule,pattern=weekly
             type=semver,pattern={{major}}.{{minor}}.{{patch}}
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
@@ -48,12 +41,15 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Push to Docker Hub
+      - name: Build image and push to Docker Hub
         uses: docker/build-push-action@v7
         with:
           context: .
           file: ./Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
+          pull: true
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
-          build-args: GH_PAT=${{ secrets.GITHUB_TOKEN }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          secrets: "github_pat=${{ secrets.GITHUB_TOKEN }}"
