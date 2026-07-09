@@ -23,13 +23,12 @@ Encoding: UTF-8
 Depends:
   R (>= 4.1.0)
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 Imports: 
     bslib,
     dplyr,
     DT,
     knitr,
-    rapbase,
+    rapbase (>= 3.9.0),
     readr,
     rlang,
     rpivotTable,
@@ -41,3 +40,4 @@ Suggests:
     testthat (>= 3.0.0),
     RMariaDB
 Config/testthat/edition: 3
+Config/roxygen2/version: 8.0.0
