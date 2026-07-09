@@ -73,9 +73,8 @@ app_server <- function(input, output, session) {
 
   # Usestats
   log <- shiny::reactive({
-    rapbase:::readLog(type = input$type, name = "") |>
+    rapbase::readLog(type = input$type, name = "") |>
       rapbase::logFormat()
-    # NULL
   })
 
   output$download <- shiny::downloadHandler(

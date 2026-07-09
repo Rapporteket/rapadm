@@ -29,7 +29,7 @@ Imports:
     dplyr,
     DT,
     knitr,
-    rapbase,
+    rapbase (>= 3.9.0),
     readr,
     rlang,
     rpivotTable,
